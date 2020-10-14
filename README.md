@@ -1,3 +1,3 @@
 # .NetHEARC
 
-Homeworks for .Net 
+Homeworks for .Net course from HE-ARC
