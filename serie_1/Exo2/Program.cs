@@ -9,13 +9,15 @@ namespace Exo2 {
             int iterations = 0;
 
             Stopwatch stopwatch = new Stopwatch();
+            double error = number / Math.Pow(10,9);
+            double rootNumber = Math.Sqrt(number);
             stopwatch.Start();
             do {
                 iterations++;
                 root = (root + number / root) / 2;
                 WriteLine($"Approximation of the root of  {number} is {root}");
             }
-            while (Math.Abs(root - Math.Sqrt(number)) > number / (Math.Pow(10, 9)));
+            while (Math.Abs(root - rootNumber) > error);
             stopwatch.Stop();
 
             return new double[] { root, iterations, stopwatch.ElapsedMilliseconds, (Math.Sqrt(number) - root) / Math.Sqrt(number) * 100 };
