@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Joris\\Desktop\\3\\.NET\\serie_1\\Exo3\\Exo3.csproj": {}
+    "C:\\Users\\Joris\\Desktop\\3\\.NET\\Serie_1\\Exo3\\Exo3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Joris\\Desktop\\3\\.NET\\serie_1\\Exo3\\Exo3.csproj": {
+    "C:\\Users\\Joris\\Desktop\\3\\.NET\\Serie_1\\Exo3\\Exo3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Joris\\Desktop\\3\\.NET\\serie_1\\Exo3\\Exo3.csproj",
+        "projectUniqueName": "C:\\Users\\Joris\\Desktop\\3\\.NET\\Serie_1\\Exo3\\Exo3.csproj",
         "projectName": "Exo3",
-        "projectPath": "C:\\Users\\Joris\\Desktop\\3\\.NET\\serie_1\\Exo3\\Exo3.csproj",
+        "projectPath": "C:\\Users\\Joris\\Desktop\\3\\.NET\\Serie_1\\Exo3\\Exo3.csproj",
         "packagesPath": "C:\\Users\\Joris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Joris\\Desktop\\3\\.NET\\serie_1\\Exo3\\obj\\",
+        "outputPath": "C:\\Users\\Joris\\Desktop\\3\\.NET\\Serie_1\\Exo3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Joris\\AppData\\Roaming\\NuGet\\NuGet.Config",
