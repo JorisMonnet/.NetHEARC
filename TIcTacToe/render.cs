@@ -15,11 +15,10 @@ public class Render
 
             for (int y = 0; y < 3; y++) {
                 sb.Append((y == 0) ? "  " : "  |  ");
-                sb.Append(b.field[x*3 + y].ToString());
+                sb.Append((b[x,y] != null) ? b[x,y].ToString() : " ");
             }
-
+            if (x < 2) sb.Append("\n-----+-----+-----");
             Console.WriteLine(sb);
-            if (x < 2) Console.WriteLine("-----+-----+-----");
         }
         Console.WriteLine();
     }

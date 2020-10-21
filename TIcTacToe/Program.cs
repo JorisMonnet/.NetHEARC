@@ -10,7 +10,8 @@ namespace TIcTacToe
             r.Draw();
 
             while (!b.IsFinished() || b.DoRestart()) {
-                if (b.InsertMove(b.NextMove()))  {
+                var (x, y) = b.NextMove();
+                if (b.InsertMove(x,y))  {
                     r.Draw();
                 }
             }

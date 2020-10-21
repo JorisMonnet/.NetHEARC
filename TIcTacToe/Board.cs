@@ -1,45 +1,51 @@
 ﻿using System;
+using static System.Console;
 
-public class Board
+public class Board : ITerminable
 {
 	private Player currentPlayer,nextPlayer;
-    public string[] field = new string[9];
+    private Player[,] field;
     public Board(Player p1,Player p2) {
         currentPlayer = p1;
         nextPlayer = p2;
-        Initfield();
+        field = new Player[3,3];
 	}
-    public void Initfield(){
-        for(int i=0;i<9;i++){
-            field[i] = i.ToString();
+    public bool IsPossible(int x,int y){
+        try{
+            return field[x,y] == null;
+        } catch { 
+            return false; 
         }
     }
-    public bool InsertMove(int position) {
-        if (position <9 && position>-1&&field[position]!=nextPlayer.ToString()&& field[position] != currentPlayer.ToString()) {
-            field[position] = currentPlayer.ToString();
+    public bool InsertMove(int x,int y) {
+        if(IsPossible(x,y)) {
+            field[x,y] = currentPlayer;
             (currentPlayer, nextPlayer) = (nextPlayer, currentPlayer);
-        } else {Console.WriteLine("Move not valid !\n");}
-        return (position < 9 && position > -1);
-    }
-    public bool IsCompleted(){
-        for (int i = 0; i < 9; i++) {
-            if (field[i] == i.ToString()) return false;
+            return true;
+        } else {
+            WriteLine("Move not valid !");
+            return false;
         }
-        return true;
+        
     }
     
     public bool IsFinished(){
-        bool statement = false;
-        for (int i = 0; i < 3; i++) {
-            if (field[i] == field[i + 1] && field[i] == field[i + 2]) statement = true;
-            if (field[i] == field[i + 3] && field[i] == field[i + 6]) statement = true;
-        }
-        if (field[0] == field[2] && field[0] == field[4]) statement = true;
-        if (field[2] == field[4] && field[2] == field[6]) statement = true;
-        if (statement){
-            nextPlayer.nbVictory++;
-            Console.WriteLine($"Player {nextPlayer} won ! Victories : Player {nextPlayer}:{nextPlayer.nbVictory}\tPlayer {currentPlayer}:{currentPlayer.nbVictory}");
-            return true;
+        int col = 0, row = 0, diag = 0, antidiag = 0;
+        Player pc, pr;
+        for(int x = 0;x < 2;x++) {
+            if(field[0,0] != null && field[0,0] == field[x,x]) diag++;
+
+            for(int y = 0;y < 2;y++) {
+                if(field[x,0] != null && field[x,0] == field[x,y]) row++; 
+                if(field[0,x] != null && field[0,x] == field[y,x]) col++; 
+                if(x + y == 1 && field[0,2] != null && field[0,2] == field[x,y]) antidiag++; 
+            }
+            if(col >= 2 || row >= 2 || diag >= 2 || antidiag >= 2) {
+                nextPlayer.nbVictory++;
+                WriteLine($"Player {nextPlayer} won ! Victories : Player {nextPlayer}:{nextPlayer.nbVictory}\tPlayer {currentPlayer}:{currentPlayer.nbVictory}");
+                return true;
+            }
+            col = 0; row = 0;
         }
         if (IsCompleted()){
             Console.WriteLine($"Draw ! Victories : Player{currentPlayer}:{currentPlayer.nbVictory}\tPlayer {nextPlayer}:{nextPlayer.nbVictory}");
@@ -47,23 +53,38 @@ public class Board
         }
         return false;
     }
-
-    public int NextMove()  {
-        do {
-            Console.Write($"Player {currentPlayer} please enter number : ");
-            try{
-                return int.Parse(Console.ReadLine());
+    public bool IsCompleted(){
+        for(int i = 0;i < 3;i++) {
+            for(int j=0;j<3;j++){
+                if(field[i,j] == null) return false;
             }
-            catch {Console.WriteLine("Wrong coordinates format");}
-        } while (true);
+        }
+        return true;
     }
     public bool DoRestart(){
         do {
             Console.Write($"Do you want to restart ? [Y]es or [N]o : ");
             string val = Console.ReadLine().ToUpper();
             if (val.Equals("N")) return false;
-            if (val.Equals("Y")) {Initfield();return true;}
+            if (val.Equals("Y")) {field=new Player[3,3];return true;}
             Console.WriteLine("error, only Y or N");
         } while (true);
+    }
+    internal Tuple<int,int> NextMove() {
+        string val;
+        do {
+            Write($"Player {currentPlayer} please enter x,y : ");
+            val = ReadLine();
+            try {
+                if(val.Contains(",")) {
+                    string[] nums = val.Split(',');
+                    return Tuple.Create(int.Parse(nums[1]),int.Parse(nums[0]));
+                }
+                else throw new Exception("Wrong coordinates format");
+            } catch(Exception e) {WriteLine(e.Message); }
+        } while(true);
+    }
+    public Player this[int x,int y] {
+        get { return field[x,y]; }
     }
 }
